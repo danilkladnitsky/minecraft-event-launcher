@@ -3,10 +3,10 @@ name: Deploy auth service
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
-  deploy auth service:
+  auth-service:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
