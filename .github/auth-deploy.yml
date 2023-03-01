@@ -1,0 +1,16 @@
+name: Deploy auth service
+
+on:
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  deploy auth service:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build services
+        run: docker compose up -d --build auth
+      - name: Status
+        run: docker ps -a
