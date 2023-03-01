@@ -16,6 +16,6 @@ jobs:
           touch .env
           echo "${{secrets.ENV_FILE}}" > .env
       - name: Build services
-        run: docker compose up -d --build auth
+        run: docker compose up -d --build auth-service
       - name: Status
         run: docker ps -a
