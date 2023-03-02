@@ -15,8 +15,6 @@ services:
     restart: always
     ports:
       - ${APP_PORT}:${APP_PORT}
-    networks:
-      - app_network
     depends_on:
       - postgres
 
@@ -31,8 +29,6 @@ services:
       - ${PG_PORT}:${PG_PORT}
     volumes:
       - /github_actions/volumes/postgres:/var/lib/postgresql/data
-    networks:
-      - app_network
     command: -p ${PG_PORT}
 
   nginx:
@@ -42,10 +38,3 @@ services:
             - "443:443"
         volumes:
             - /github_actions/conf.d:/etc/nginx/conf.d
-        networks:
-            - app_network
-
-
-networks:
-  app_network: 
-   external: true
