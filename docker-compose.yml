@@ -39,6 +39,16 @@ services:
       - app_network
     command: -p ${PG_PORT}
 
+  nginx:
+        image: nginx:latest
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ./conf.d:/etc/nginx/conf.d
+        networks:
+            - app_network
+
 
 networks:
   app_network: 
