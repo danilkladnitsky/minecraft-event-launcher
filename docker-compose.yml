@@ -32,7 +32,7 @@ services:
     ports:
       - ${PG_PORT}:${PG_PORT}
     volumes:
-      - ./volumes/postgres:/var/lib/postgresql/data
+      - /github_actions/volumes/postgres:/var/lib/postgresql/data
     networks:
       - app_network
     command: -p ${PG_PORT}
@@ -43,7 +43,7 @@ services:
             - "80:80"
             - "443:443"
         volumes:
-            - ./conf.d:/etc/nginx/conf.d
+            - /github_actions/conf.d:/etc/nginx/conf.d
         networks:
             - app_network
 
