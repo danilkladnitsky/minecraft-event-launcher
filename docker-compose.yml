@@ -5,8 +5,6 @@ services:
     build:
       dockerfile: Dockerfile.dev
       context: ./auth-service
-    volumes:
-        - ./volumes/auth:/app
     environment:
       PG_USER: ${PG_USER}
       PG_PASSWORD: ${PG_PASSWORD}
