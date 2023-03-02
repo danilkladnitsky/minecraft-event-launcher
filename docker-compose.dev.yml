@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10.4-alpine
+    environment:
+      POSTGRES_USER: ${PG_USER}
+      POSTGRES_PASSWORD: ${PG_PASSWORD}
+      POSTGRES_DB: ${PG_DB}
+    ports:
+      - ${PG_PORT}:${PG_PORT}
+    command: -p ${PG_PORT}
+    volumes:
+      - ./volumes/postgres:/var/lib/postgresql/data
+  
+  auth-service:
+      container_name: auth
+      build:
+        dockerfile: Dockerfile.dev
+        context: ./auth-service
+      environment:
+        PG_USER: ${PG_USER}
+        PG_PASSWORD: ${PG_PASSWORD}
+        PG_DB: ${PG_DB}
+        PG_PORT: ${PG_PORT}
+        PG_HOST: ${PG_HOST}
+        JWT_TOKEN: ${JWT_TOKEN}
+      restart: always
+      ports:
+        - ${APP_PORT}:${APP_PORT}
+      depends_on:
+        - postgres
+
+  nginx:
+        image: nginx:latest
+        ports:
+            - "8080:80"
+            - "8443:443"
+        volumes:
+            - ./conf.d:/etc/nginx/conf.d
