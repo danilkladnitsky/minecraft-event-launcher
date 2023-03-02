@@ -8,6 +8,7 @@ on:
 jobs:
   auth-service:
     runs-on: self-hosted
+    needs: [clone-repository]
     steps:
       - uses: actions/checkout@v2
       - name: Create env file
