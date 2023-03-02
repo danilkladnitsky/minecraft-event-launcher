@@ -2,7 +2,7 @@ FROM node:18-alpine AS development
 
 WORKDIR /usr/app
 COPY package*.json ./
-RUN npm ci
+RUN npm ci --production
 COPY . .
 RUN npm run build
 CMD [ "node", "dist/main.js" ]
