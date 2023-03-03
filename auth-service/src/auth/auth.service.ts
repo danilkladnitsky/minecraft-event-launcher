@@ -80,7 +80,7 @@ export class AuthService {
       { expiresIn: "1h" }
     );
 
-    return { nickname: user.nickname, token };
+    return { nickname: user.nickname, token, id: user.id };
   }
 
   async createAccount({
@@ -104,13 +104,13 @@ export class AuthService {
       salt
     );
 
-    await this.userRepository.save({
+    const user = await this.userRepository.save({
       nickname,
       password: newPassword,
       uuid: uuid4().replace(/-/g, "")
     });
 
-    return { nickname, password: useOwnPassword ? randomPassword : password };
+    return { nickname, password: useOwnPassword ? randomPassword : password, id: user.id };
   }
 
   async join(data: JoinRequest) {

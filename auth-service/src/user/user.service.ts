@@ -23,14 +23,8 @@ export class UserService {
 
   async getUser(id: number) {
     
-    const user = await this.userRepository.find({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
     
-    const selectedUser = user[0];
-
-    delete selectedUser.password;
-    delete selectedUser.id;
-    delete selectedUser.updatedAt;
-
     return user;
   }
 
