@@ -21,9 +21,7 @@ jobs:
         run: docker compose pull
       - name: Build services
         run: docker compose build
-      - name: Run auth
-        run: docker run -d -p 4000:4000 auth-service
-      - name: Run bd
-        run: docker run -d -p 5432:5432 auth-service
+      - name: Run services
+        run: docker compose up -d
       - name: Status
         run: docker ps -a
