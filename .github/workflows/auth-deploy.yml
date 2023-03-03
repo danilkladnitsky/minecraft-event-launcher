@@ -17,8 +17,8 @@ jobs:
           echo "${{secrets.ENV_FILE}}" > .env
       - name: Stop services
         run: docker compose stop
-      # - name: Pull services
-        # run: docker compose pull
+      - name: Pull services
+        run: docker compose pull
       - name: Build services
         run: docker compose build
       - name: Run services
