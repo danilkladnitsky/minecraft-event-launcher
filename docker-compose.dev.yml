@@ -16,7 +16,8 @@ services:
   auth-service:
       container_name: auth
       build:
-        dockerfile: Dockerfile.dev
+        dockerfile: Dockerfile
+        target: production
         context: ./auth-service
       environment:
         PG_USER: ${PG_USER}
@@ -38,3 +39,5 @@ services:
             - "8443:443"
         volumes:
             - ./conf.d:/etc/nginx/conf.d
+        depends_on:
+        - auth-service

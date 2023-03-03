@@ -29,7 +29,5 @@ COPY . .
 
 COPY --from=development /usr/src/backend/dist ./dist
 
-EXPOSE 4000
-
 # Run app
 CMD [ "node", "dist/main" ]

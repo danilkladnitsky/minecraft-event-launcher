@@ -7,3 +7,15 @@ body{
 a{
     text-decoration: none;
 }
+
+label{
+    margin-bottom: 4px;
+}
+
+.app-wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    position: relative;
+}

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "proxy": "http://localhost/api",
   "scripts": {
     "start": "webpack serve --config webpack.config.js --env env=development",
     "build": "webpack --config webpack.config.js --env env=production"
@@ -37,6 +38,7 @@
     "@mantine/form": "^5.10.5",
     "@mantine/hooks": "^5.10.5",
     "@mantine/notifications": "^5.10.5",
+    "@tabler/icons-react": "^2.7.0",
     "react-router-dom": "^6.8.2",
     "sass": "^1.58.3",
     "zustand": "^4.3.5"

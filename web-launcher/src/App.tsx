@@ -1,19 +1,22 @@
-import { AppShell, Header, Navbar } from '@mantine/core';
 import React from 'react'
+import { MantineProvider } from '@mantine/core';
 import { BrowserRouter } from 'react-router-dom';
-import LoginPage from './pages/LoginPage';
+import { useAuthStore } from 'store';
+
+import LoginPage from 'pages/LoginPage';
 
 function App() {
+    const authenticated = useAuthStore((state) => state.authenticated);
+
     return (
-        <BrowserRouter>
-            <AppShell
-                padding="md"
-                styles={(theme) => ({
-                    main: { backgroundColor: theme.colors.dark[8] },
-                })}>
-                <LoginPage />
-            </AppShell>
-        </BrowserRouter>
+        <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
+            <div className='app-wrapper'>
+                <BrowserRouter>
+                    {!authenticated ? <LoginPage /> : <>LoggedIn</>}
+                </BrowserRouter>
+            </div>
+        </MantineProvider>
+
     )
 }
 
