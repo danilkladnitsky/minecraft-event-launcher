@@ -15,7 +15,7 @@ services:
       JWT_TOKEN: ${JWT_TOKEN}
     restart: always
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - "${APP_PORT}:${APP_PORT}"
     depends_on:
       - postgres
 
@@ -27,7 +27,7 @@ services:
       POSTGRES_PASSWORD: ${PG_PASSWORD}
       POSTGRES_DB: ${PG_DB}
     ports:
-      - ${PG_PORT}:${PG_PORT}
+      - "${PG_PORT}:${PG_PORT}"
     volumes:
       - /github_actions/volumes/postgres:/var/lib/postgresql/data
     command: -p ${PG_PORT}
