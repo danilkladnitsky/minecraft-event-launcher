@@ -15,7 +15,11 @@ jobs:
           rm -f .env
           touch .env
           echo "${{secrets.ENV_FILE}}" > .env
+      - name: Pull services
+        run: docker compose pull
       - name: Build services
-        run: docker compose up -d --build auth-service nginx
+        run: docker compose build
+      - name: Run services
+        run: docker compose up -d
       - name: Status
         run: docker ps -a
