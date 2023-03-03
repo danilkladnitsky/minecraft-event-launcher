@@ -18,7 +18,7 @@ jobs:
       - name: Pull services
         run: docker compose pull
       - name: Build services
-        run: docker compose build
+        run: docker compose build --force-recreate
       - name: Run services
         run: docker compose up -d
       - name: Status
