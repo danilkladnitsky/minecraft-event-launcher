@@ -15,7 +15,7 @@ services:
       JWT_TOKEN: ${JWT_TOKEN}
     restart: always
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - 5000:${APP_PORT}
     depends_on:
       - postgres
     networks:
