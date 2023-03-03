@@ -4,6 +4,7 @@ services:
     container_name: auth
     build:
       dockerfile: Dockerfile
+      target: development
       context: ./auth-service
     environment:
       PG_USER: ${PG_USER}
