@@ -23,11 +23,11 @@ WORKDIR /usr/app
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install --only=production
+RUN npm install --prefer-offline --no-audit
 
 COPY . .
 
-COPY --from=development /usr/src/backend/dist ./dist
+COPY --from=development /usr/app/dist ./dist
 
 EXPOSE 4000
 
