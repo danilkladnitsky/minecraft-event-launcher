@@ -39,6 +39,6 @@ services:
         - "80:80"
         - "443:443"
     volumes:
-        - /github_actions/conf.d:/etc/nginx/conf.d
+        - ./conf.d:/etc/nginx/conf.d
     depends_on:
         - auth-service

@@ -27,6 +27,7 @@ services:
         PG_HOST: ${PG_HOST}
         JWT_TOKEN: ${JWT_TOKEN}
         APP_PORT: ${APP_PORT}
+      restart: always
       ports:
         - ${APP_PORT}:${APP_PORT}
       depends_on:
