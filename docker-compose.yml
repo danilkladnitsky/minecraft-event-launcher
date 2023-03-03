@@ -48,4 +48,4 @@ services:
 
 networks:
   network:
-    driver: bridge
+    driver: host
