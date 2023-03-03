@@ -15,7 +15,7 @@ services:
       JWT_TOKEN: ${JWT_TOKEN}
     restart: always
     ports:
-      - ${APP_PORT}:${APP_PORT}
+      - 4000:4000
     depends_on:
       - postgres
     networks:
@@ -36,15 +36,15 @@ services:
     networks:
       - network
 
-  nginx:
-    image: nginx:latest
-    ports:
-        - "80:80"
-        - "443:443"
-    volumes:
-        - /github_actions/conf.d:/etc/nginx/conf.d
-    networks:
-      - network
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #       - "80:80"
+  #       - "443:443"
+  #   volumes:
+  #       - /github_actions/conf.d:/etc/nginx/conf.d
+  #   networks:
+  #     - network
 
 networks:
   network:
