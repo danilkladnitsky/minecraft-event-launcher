@@ -1,6 +1,6 @@
 FROM node:16-alpine3.15 AS development
 
-WORKDIR /usr/src/backend
+WORKDIR /usr/app
 
 COPY package.json ./
 COPY package-lock.json ./
@@ -18,7 +18,7 @@ FROM node:16-alpine3.15 AS production
 ARG NODE_ENV=production
 ENV NODE_ENV=${NODE_ENV}
 
-WORKDIR /usr/src/backend
+WORKDIR /usr/app
 
 COPY package.json ./
 COPY package-lock.json ./
@@ -27,7 +27,7 @@ RUN npm install -f
 
 COPY . .
 
-COPY --from=development /usr/src/backend/dist ./dist
+COPY --from=development /usr/app/dist ./dist
 
 # Run app
 CMD [ "node", "dist/main" ]

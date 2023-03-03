@@ -17,7 +17,7 @@ services:
       container_name: auth
       build:
         dockerfile: Dockerfile
-        target: production
+        target: development
         context: ./auth-service
       environment:
         PG_USER: ${PG_USER}
@@ -26,7 +26,7 @@ services:
         PG_PORT: ${PG_PORT}
         PG_HOST: ${PG_HOST}
         JWT_TOKEN: ${JWT_TOKEN}
-      restart: always
+        APP_PORT: ${APP_PORT}
       ports:
         - ${APP_PORT}:${APP_PORT}
       depends_on:
