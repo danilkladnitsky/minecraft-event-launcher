@@ -18,6 +18,8 @@ services:
       - ${APP_PORT}:${APP_PORT}
     depends_on:
       - postgres
+    networks:
+      - network
 
   postgres:
     container_name: postgres
@@ -31,11 +33,19 @@ services:
     volumes:
       - /github_actions/volumes/postgres:/var/lib/postgresql/data
     command: -p ${PG_PORT}
+    networks:
+      - network
 
   nginx:
-        image: nginx:latest
-        ports:
-            - "80:80"
-            - "443:443"
-        volumes:
-            - /github_actions/conf.d:/etc/nginx/conf.d
+    image: nginx:latest
+    ports:
+        - "80:80"
+        - "443:443"
+    volumes:
+        - /github_actions/conf.d:/etc/nginx/conf.d
+    networks:
+      - network
+
+networks:
+  network:
+    driver: bridge
