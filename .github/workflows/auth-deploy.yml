@@ -16,7 +16,7 @@ jobs:
           touch .env
           echo "${{secrets.ENV_FILE}}" > .env
       - name: Stop services
-        run: docker compose stop
+        run: docker compose down
       - name: Pull services
         run: docker compose pull
       - name: Build services

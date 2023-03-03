@@ -23,9 +23,6 @@ WORKDIR /usr/src/backend
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm cache clean --force
-RUN npm install npm@latest -g
-
 RUN npm install -f
 
 COPY . .
