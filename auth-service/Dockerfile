@@ -8,7 +8,7 @@ WORKDIR /usr/app
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install --prefer-offline --no-audit
+RUN npm install --no-audit
 
 COPY . .
 
