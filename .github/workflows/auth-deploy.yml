@@ -6,8 +6,14 @@ on:
       - 'main'
 
 jobs:
+  checkout:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+      
   auth-service:
     runs-on: self-hosted
+    needs: checkout
     steps:
       - uses: actions/checkout@v3
       - name: Create env file
@@ -15,13 +21,19 @@ jobs:
           rm -f .env
           touch .env
           echo "${{secrets.ENV_FILE}}" > .env
-      - name: Stop services
-        run: docker compose down
-      - name: Pull services
-        run: docker compose pull
-      - name: Build services
-        run: docker compose build
-      - name: Run services
-        run: docker compose up -d
+      - name: Run service
+        run: docker compose up --detach --build auth-service
       - name: Status
         run: docker ps -a
+
+  web-service:
+    runs-on: self-hosted
+    needs: [auth-service, checkout]
+    steps:
+      - name: Create env file
+        run: |
+          rm -f ./web-launcher/.env
+          touch ./web-launcher/.env
+          echo "${{secrets.WEB_ENV_FILE}}" > ./web-launcher/.env
+      - name: Run service
+        run: docker compose up --detach --build web-launcher
