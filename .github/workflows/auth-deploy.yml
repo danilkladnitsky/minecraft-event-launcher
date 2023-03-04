@@ -49,7 +49,6 @@ jobs:
     needs: init
     if: needs.init.outputs.auth_service == 'true'
     steps:
-      - uses: actions/checkout@v3
       - name: Run auth service
         run: docker compose up -d --build auth-service
       - name: Status
