@@ -2,11 +2,10 @@ FROM node:latest
 
 ENV PORT=4000
 
-RUN npm install webpack webpack-cli -g
-
 WORKDIR /usr/app
-COPY . /usr/app/
-
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm i
+COPY . .
 RUN npm run start
-
 EXPOSE 4000

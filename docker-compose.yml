@@ -45,10 +45,12 @@ services:
         - ./conf.d:/etc/nginx/conf.d
     depends_on:
         - auth-service
+        - nginx
     
   web-launcher:
     container_name: web-launcher
     build:
       context: ./web-launcher
+      dockerfile: Dockerfile
     ports:
       - "3000:4000"
