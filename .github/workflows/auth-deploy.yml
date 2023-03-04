@@ -61,9 +61,7 @@ jobs:
     steps:
       - name: Create env file
         run: |
-          rm -f ./web-launcher/.env
-          touch ./web-launcher/.env
-          echo "${{secrets.WEB_ENV_FILE}}" > ./web-launcher/.env
+          echo "${{secrets.WEB_ENV_FILE}}" > web-launcher/.env
       - name: Run web launcher
         run: docker compose up -d --build web-launcher
   
