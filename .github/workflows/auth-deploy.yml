@@ -8,7 +8,7 @@ on:
 jobs:
   update-repo:
     name: checkout
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -19,7 +19,7 @@ jobs:
       auth_service: ${{ steps.check_files.outputs.auth_service }}
       web_launcher: ${{ steps.check_files.outputs.web_launcher }}
       nginx: ${{ steps.check_files.outputs.nginx }}
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: update-repo
     steps:
       - name: Checkout code
