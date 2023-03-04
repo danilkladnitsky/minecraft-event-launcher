@@ -11,7 +11,7 @@ export const initIpc = (): { device: string } => {
     } catch (err) {
         return { device: "browser" };
     }
-}
+};
 
 export const ipcSend = (code: IpcCode, data?: IpcRequest) => {
     if (!ipcChannel) {
@@ -19,4 +19,4 @@ export const ipcSend = (code: IpcCode, data?: IpcRequest) => {
     }
     
     ipcChannel.send(code, JSON.stringify(data));
-}
+};

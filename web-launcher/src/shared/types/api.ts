@@ -16,3 +16,8 @@ export type VerifyTokenResponse = {
     nickname: string;
 };
 
+export type AccessTokenResponse = {
+    accessToken: string;
+    nickname: string;
+    uuid: string;
+}

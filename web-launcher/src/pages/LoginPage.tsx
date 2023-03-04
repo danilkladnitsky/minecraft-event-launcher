@@ -55,6 +55,7 @@ function LoginPage() {
         leftIcon={<IconLogin size={"1rem"} />}
         onClick={handleLogin}
         disabled={formDisabled}
+        size="md"
         >
         Авторизоваться
       </Button>

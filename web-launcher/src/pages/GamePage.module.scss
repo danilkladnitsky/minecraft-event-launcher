@@ -1,7 +1,6 @@
 .wrapper{
     position: relative;
     height: 100%;
-    width: 400px;
     display: flex;
     padding: 20px;
     box-sizing: border-box;
@@ -11,8 +10,14 @@
     align-self: flex-end;
     display: flex;
     gap: 8px;
+    flex: 1;
 }
 
 .playButton{
-    width: 100%;
+    flex: 1;
+    width: 250px;
+}
+
+.skinButton, .logoutButton{
+    width: 120px;
 }
