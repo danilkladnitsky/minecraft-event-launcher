@@ -39,8 +39,6 @@ jobs:
             done < files.txt
       - name: Create env file for backend
         run: |
-          rm -f .env
-          touch .env
           echo "${{secrets.ENV_FILE}}" > .env
       - name: Create env file for web launcher
         run: |
