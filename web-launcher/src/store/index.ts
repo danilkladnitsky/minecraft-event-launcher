@@ -9,6 +9,8 @@ export const useAuthStore = create((set) => ({
     authenticated: false,
     loginInProcess: false,
     error: null,
+    verifyStatus: "loading",
+    nickname: null,
     clearError: () => set(() => ({ error: null })),
     authenticate: async (nickname: string, password: string) => {
         set(() => ({ loginInProcess: true }));
@@ -24,13 +26,22 @@ export const useAuthStore = create((set) => ({
         set(() => ({ authenticated: true, loginInProcess: false }));
     },
     verifyToken: async () => {
-        const { ok } = await fetchApi<VerifyTokenResponse>(ROUTES.VERIFY_TOKEN());
-        set(() => ({ authenticated: ok }));
+        set(() => ({ verifyStatus: "loading" }));
+        const { ok, data } = await fetchApi<VerifyTokenResponse>(ROUTES.VERIFY_TOKEN());
+
+        if (!ok || !data) {
+            return set(() => ({ authenticated: ok, verifyStatus: "idle" }));
+        }
+
+        set(() => ({ authenticated: ok, verifyStatus: "idle", nickname: data.nickname }));
+    },
+    logout: async () => {
+        localStorage.clear();
+        set(() => ({ authenticated: false }));
     }
 }));
 
 export const useUserStore = create((set) => ({
-    nickname: null,
     setNickname: (nickname: string) => set(() => ({ nickname })),
 }));
 

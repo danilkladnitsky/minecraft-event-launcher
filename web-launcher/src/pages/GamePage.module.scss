@@ -1,3 +1,18 @@
 .wrapper{
-    
+    position: relative;
+    height: 100%;
+    width: 400px;
+    display: flex;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.buttons{
+    align-self: flex-end;
+    display: flex;
+    gap: 8px;
+}
+
+.playButton{
+    width: 100%;
 }

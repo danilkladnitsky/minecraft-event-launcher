@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react'
-import { MantineProvider } from '@mantine/core';
-import { BrowserRouter } from 'react-router-dom';
+import React, { ReactNode, useEffect } from 'react'
+import { Loader, MantineProvider } from '@mantine/core';
 import { useAuthStore, useIpcStore } from 'store';
 
 import LoginPage from 'pages/LoginPage';
@@ -9,25 +8,35 @@ import GamePage from 'pages/GamePage';
 
 
 function App() {
-    const authenticated = useAuthStore((state) => state.authenticated);
-    const verifyToken = useAuthStore((state) => state.verifyToken);
+    const { authenticated, verifyToken, verifyStatus } = useAuthStore();
     const { setDevice } = useIpcStore();
 
     useEffect(() => {
         setDevice(initIpc().device);
         verifyToken();
-    }, [])
+    }, []);
+
+    if (verifyStatus === "loading") {
+        return <Loader size="xl" variant="dots" />;
+    }
     
+    if (!authenticated) {
+        return <LoginPage />;
+    }
+
+    return <GamePage />;
+    
+}
+
+function MantineWrapper({ children }: { children: ReactNode }) {
     return (
         <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
             <div className='app-wrapper'>
-                <BrowserRouter>
-                    {!authenticated ? <LoginPage /> : <GamePage />}
-                </BrowserRouter>
+                {children}
             </div>
         </MantineProvider>
-
-    )
+    );
 }
 
-export default App;
+
+export default () => <MantineWrapper><App /></MantineWrapper>;
