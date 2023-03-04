@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+      - name: Create env file for backend
+        run: |
+          echo "${{secrets.ENV_FILE}}" > .env
+      - name: Create env file for web launcher
+        run: |
+          echo "${{secrets.WEB_ENV_FILE}}" > web-launcher/.env
 
 
   postgres:
@@ -37,15 +43,12 @@ jobs:
     runs-on: self-hosted
     needs: update-repo
     steps:
-      - name: Create env file
-        run: |
-          echo "${{secrets.WEB_ENV_FILE}}" > web-launcher/.env
       - name: Run web launcher
         run: docker compose up -d --build web-launcher
   
   nginx:
     runs-on: self-hosted
-    needs: update-repo
+    needs: [web-service, auth-service]
     steps:
       - name: Run nginx
         run: docker compose up -d --build nginx
