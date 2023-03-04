@@ -29,11 +29,6 @@ jobs:
     needs: postgres
     steps:
       - uses: actions/checkout@v3
-      - name: Create env file
-        run: |
-          rm -f .env
-          touch .env
-          echo "${{secrets.ENV_FILE}}" > .env
       - name: Run auth service
         run: docker compose up -d --build auth-service
       - name: Status
@@ -50,6 +45,6 @@ jobs:
     runs-on: self-hosted
     needs: [web-service, auth-service]
     steps:
-      - name: Run nginx
-        run: docker compose up -d --build nginx
+      - name: Run nginx & certbot
+        run: docker compose up -d --build nginx certbot
     
