@@ -7,7 +7,6 @@ import LoginPage from 'pages/LoginPage';
 
 function App() {
     const authenticated = useAuthStore((state) => state.authenticated);
-
     return (
         <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
             <div className='app-wrapper'>

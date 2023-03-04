@@ -11,8 +11,6 @@ function authorizeFunc(username: string, password: string, cb) {
   const {SWAGGER_USER:user, SWAGGER_PASSWORD:pwd} = process.env;
   const isOk = username === user && password === pwd;
   return cb(null, isOk);
-
-
 }
 
 async function bootstrap() {
@@ -41,7 +39,6 @@ async function bootstrap() {
   app.useStaticAssets(join(__dirname, '..', 'static'), {
     prefix: '/static/',
   });
-
   await app.listen(process.env.APP_PORT);
 }
 
