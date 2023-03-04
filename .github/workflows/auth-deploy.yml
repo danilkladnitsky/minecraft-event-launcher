@@ -16,23 +16,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # - name: check modified files
-      #   id: check_files
-      #   run: |
-      #       git diff --name-only HEAD^ HEAD
-      #       git diff --name-only HEAD^ HEAD > files.txt
-      #       while IFS= read -r file; do
-      #         echo $file
-      #         if [[ $file == auth-service/* ]]; then
-      #           echo "::set-output name=auth_service::true"
-      #         elif [[ $file == web-launcher/* ]]; then
-      #           echo "::set-output name=web_launcher::true"
-      #         elif [[ $file == conf.d/* ]]; then
-      #           echo "::set-output name=nginx::true"
-      #         else
-      #           echo "file does not belong to any service"
-      #         fi
-      #       done < files.txt
+      - name: check modified files
+        id: check_files
+        run: |
+            git diff --name-only HEAD^ HEAD
+            git diff --name-only HEAD^ HEAD > files.txt
+            while IFS= read -r file; do
+              echo $file
+              if [[ $file == auth-service/* ]]; then
+                echo "::set-output name=auth_service::true"
+              elif [[ $file == web-launcher/* ]]; then
+                echo "::set-output name=web_launcher::true"
+              elif [[ $file == conf.d/* ]]; then
+                echo "::set-output name=nginx::true"
+              else
+                echo "file does not belong to any service"
+              fi
+            done < files.txt
 
   auth-service:
     runs-on: self-hosted
