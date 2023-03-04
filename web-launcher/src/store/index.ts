@@ -49,6 +49,7 @@ export const useIpcStore = create((set) => ({
     setDevice: (device: string) => set(() => ({ device })),
     launcherError: null,
     playStatus: "idle",
+    setPlayStatus: () => set({ playStatus: "idle" }),
     sendPlaySignal: async () => {
         const { ok, data } = await fetchApi<AccessTokenResponse>(ROUTES.ACCESS_TOKEN());
         set(({ playStatus: "loading" }));

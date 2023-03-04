@@ -5,19 +5,27 @@ import styles from "./GamePage.module.scss";
 
 function GamePage() {
     const { logout } = useAuthStore();
-    const { sendPlaySignal, playStatus } = useIpcStore();
+    const { sendPlaySignal, playStatus, setPlayStatus, device } = useIpcStore();
 
     const isPlaying = playStatus === "success";
-    const playText = isPlaying ? "Игра запускается..." : "Играть";
 
     const buttonColor = !isPlaying ? { from: 'indigo', to: 'cyan' } : { from: "lime", to: "green" };
+
+    const isPlayable = device !== "browser";
+
+    const playText = isPlayable ?  isPlaying ? "Игра запускается..." : "Играть" : "Зайдите в лаунчер для игры";
+
 
     const handlePlay = () => {
         if (isPlaying) {
             return;
         }
-
         sendPlaySignal();
+    }
+
+    const handleLogout = () => {
+        logout();
+        setPlayStatus("idle");
     }
 
     return (
@@ -31,12 +39,13 @@ function GamePage() {
                 className={styles.playButton}
                 onClick={handlePlay}
                 loading={playStatus === "loading"}
+                disabled={!isPlayable}
               />
               <Button
                   children="Выйти"
                   size="md"
                   variant='outline'
-                  onClick={logout}
+                  onClick={handleLogout}
                   className={styles.logoutButton}
               />
           </div>
