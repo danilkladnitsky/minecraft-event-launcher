@@ -45,7 +45,7 @@ services:
         - ./conf.d:/etc/nginx/conf.d
     depends_on:
         - auth-service
-        - nginx
+        - web-launcher
     
   web-launcher:
     container_name: web-launcher
