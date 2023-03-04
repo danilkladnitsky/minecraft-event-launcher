@@ -39,7 +39,7 @@ jobs:
   auth-service:
     runs-on: self-hosted
     needs: init
-    # if: needs.check.outputs.auth_service == 'true'
+    if: needs.check.outputs.auth_service == 'true'
     steps:
       - uses: actions/checkout@v3
       - name: Create env file
@@ -55,7 +55,7 @@ jobs:
   web-service:
     runs-on: self-hosted
     needs: init
-    # if: needs.check.outputs.web_launcher == 'true'
+    if: needs.check.outputs.web_launcher == 'true'
     steps:
       - name: Create env file
         run: |
@@ -68,7 +68,7 @@ jobs:
   nginx:
     runs-on: self-hosted
     needs: init
-    # if: needs.check.outputs.nginx == 'true'
+    if: needs.check.outputs.nginx == 'true'
     steps:
       - name: Run nginx
         run: docker compose up -d --build nginx
