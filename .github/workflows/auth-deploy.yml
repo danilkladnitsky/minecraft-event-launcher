@@ -45,6 +45,14 @@ jobs:
                 echo "file does not belong to any service"
               fi
             done < files.txt
+      - name: Create env file for backend
+        run: |
+          rm -f .env
+          touch .env
+          echo "${{secrets.ENV_FILE}}" > .env
+      - name: Create env file for web launcher
+        run: |
+          echo "${{secrets.WEB_ENV_FILE}}" > ./web-launcher/.env
 
   auth-service:
     runs-on: self-hosted
@@ -52,11 +60,6 @@ jobs:
     if: needs.init.outputs.auth_service == 'true'
     steps:
       - uses: actions/checkout@v3
-      - name: Create env file
-        run: |
-          rm -f .env
-          touch .env
-          echo "${{secrets.ENV_FILE}}" > .env
       - name: Run auth service
         run: docker compose up -d --build auth-service
       - name: Status
@@ -67,9 +70,6 @@ jobs:
     needs: init
     if: needs.init.outputs.web_launcher == 'true'
     steps:
-      - name: Create env file
-        run: |
-          echo "${{secrets.WEB_ENV_FILE}}" > web-launcher/.env
       - name: Run web launcher
         run: docker compose up -d --build web-launcher
   

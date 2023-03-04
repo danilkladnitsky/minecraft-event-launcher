@@ -11,3 +11,4 @@ export type FetchResponse<D> = {
     data?: D,
     error?: string
 };
+
