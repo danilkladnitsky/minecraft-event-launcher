@@ -1,0 +1,51 @@
+name: Deploy all services
+
+on: workflow_dispatch
+
+jobs:
+  update-repo:
+    name: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+  postgres:
+    runs-on: self-hosted
+    needs: update-repo
+    steps:
+      - name: Run postgres
+        run: docker compose up -d --build postgres
+
+  auth-service:
+    runs-on: self-hosted
+    needs: postgres
+    steps:
+      - uses: actions/checkout@v3
+      - name: Create env file
+        run: |
+          rm -f .env
+          touch .env
+          echo "${{secrets.ENV_FILE}}" > .env
+      - name: Run auth service
+        run: docker compose up -d --build auth-service
+      - name: Status
+        run: docker ps -a
+
+  web-service:
+    runs-on: self-hosted
+    needs: update-repo
+    steps:
+      - name: Create env file
+        run: |
+          echo "${{secrets.WEB_ENV_FILE}}" > web-launcher/.env
+      - name: Run web launcher
+        run: docker compose up -d --build web-launcher
+  
+  nginx:
+    runs-on: self-hosted
+    needs: update-repo
+    steps:
+      - name: Run nginx
+        run: docker compose up -d --build nginx
+    
