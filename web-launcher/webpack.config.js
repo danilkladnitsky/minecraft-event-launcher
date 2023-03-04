@@ -16,9 +16,14 @@ module.exports = {
   context: path.join(__dirname, "src"),
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
+    filename: "[name].[hash].bundle.js",
     publicPath: "/",
   },
+  optimization: {
+     splitChunks: {
+       chunks: 'all',
+     },
+   },
   mode: "development",
   module: {
     rules: [
