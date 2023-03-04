@@ -6,6 +6,13 @@ on:
       - 'main'
 
 jobs:
+  update-repo:
+    name: checkout
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
   init:
     name: Check changed files
     outputs:
@@ -13,6 +20,7 @@ jobs:
       web_launcher: ${{ steps.check_files.outputs.web_launcher }}
       nginx: ${{ steps.check_files.outputs.nginx }}
     runs-on: ubuntu-latest
+    needs: update-repo
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
