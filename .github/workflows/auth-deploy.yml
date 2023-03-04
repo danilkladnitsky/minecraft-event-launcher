@@ -21,19 +21,27 @@ jobs:
           rm -f .env
           touch .env
           echo "${{secrets.ENV_FILE}}" > .env
-      - name: Run service
-        run: docker compose up --detach --build auth-service
+      - name: Run auth service
+        run: docker compose up -d --build auth-service
       - name: Status
         run: docker ps -a
 
   web-service:
     runs-on: self-hosted
-    needs: [auth-service, checkout]
+    needs: [auth-service]
     steps:
       - name: Create env file
         run: |
           rm -f ./web-launcher/.env
           touch ./web-launcher/.env
           echo "${{secrets.WEB_ENV_FILE}}" > ./web-launcher/.env
-      - name: Run service
-        run: docker compose up --detach --build web-launcher
+      - name: Run web launcher
+        run: docker compose up -d --build web-launcher
+  
+  nginx:
+    runs-on: self-hosted
+    needs: [auth-service, web-service]
+    steps:
+      - name: Run nginx
+        run: docker compose up -d --build nginx
+    
