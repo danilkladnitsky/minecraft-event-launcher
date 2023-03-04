@@ -1,13 +1,7 @@
-import { API_HOST } from "api";
+import { FetchRequest } from "shared/types/api";
 
 export const ROUTES = {
-    LOGIN: () => ["POST", API_HOST + "auth/login"],
-    ACCESS_TOKEN: () => ["POST", API_HOST + "auth/access-token"],
+    LOGIN: (): FetchRequest => ["POST", "auth/login"],
+    ACCESS_TOKEN: (): FetchRequest => ["POST", "auth/access-token"],
 
-}
-
-export type LoginRes = {
-    nickname: string;
-    token: string;
-    id: number;
 }
