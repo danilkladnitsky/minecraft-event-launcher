@@ -4,7 +4,7 @@ import { useAuthStore, useIpcStore } from 'store';
 import styles from "./GamePage.module.scss";
 
 function GamePage() {
-    const { logout } = useAuthStore();
+    const { logout, nickname } = useAuthStore();
     const { sendPlaySignal, playStatus, setPlayStatus, device } = useIpcStore();
 
     const isPlaying = playStatus === "success";
@@ -13,7 +13,7 @@ function GamePage() {
 
     const isPlayable = device !== "browser";
 
-    const playText = isPlayable ?  isPlaying ? "Игра запускается..." : "Играть" : "Зайдите в лаунчер для игры";
+    const playText = isPlayable ?  isPlaying ? "Игра запускается..." : `Играть за ${nickname}` : "Зайдите в лаунчер для игры";
 
 
     const handlePlay = () => {

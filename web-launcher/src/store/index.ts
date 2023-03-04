@@ -10,6 +10,7 @@ export const useAuthStore = create((set) => ({
     loginInProcess: false,
     error: null,
     verifyStatus: "loading",
+    nickname: null,
     clearError: () => set(() => ({ error: null })),
     authenticate: async (nickname: string, password: string) => {
         set(() => ({ loginInProcess: true }));
@@ -22,7 +23,7 @@ export const useAuthStore = create((set) => ({
         const { token } = data;
         localStorage.setItem("token", token);
         ipcSend(IpcCode.SEND_ACCESS_TOKEN, { payload: token });
-        set(() => ({ authenticated: true, loginInProcess: false }));
+        set(() => ({ authenticated: true, loginInProcess: false, nickname }));
     },
     verifyToken: async () => {
         set(() => ({ verifyStatus: "loading" }));
@@ -32,7 +33,7 @@ export const useAuthStore = create((set) => ({
             return set(() => ({ authenticated: ok, verifyStatus: "idle" }));
         }
 
-        set(() => ({ authenticated: ok, verifyStatus: "idle" }));
+        set(() => ({ authenticated: ok, verifyStatus: "idle", nickname: data.nickname }));
     },
     logout: async () => {
         localStorage.clear();
