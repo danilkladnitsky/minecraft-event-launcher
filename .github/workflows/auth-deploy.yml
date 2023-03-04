@@ -70,7 +70,7 @@ jobs:
     needs: init
     if: needs.init.outputs.proxy == 'true'
     steps:
+      - name: run certbot
+        run: docker compose up -d --build certbot 
       - name: run nginx
         run: docker compose up -d --build nginx
-      - name: run certbot
-        run: docker compose up -d --build certbot    
