@@ -3,7 +3,7 @@ import { FetchRequest, FetchResponse } from "shared/types/api";
 const API_HOST = process.env.API_HOST;
 
 const default_headers = {
-    "Content-Type": "application/json; charset=utf-8"
+    "Content-Type": "application/json; charset=utf-8",
 }
 
 export const fetchApi = async <D>(req: FetchRequest, options?: RequestInit): Promise<FetchResponse<D>> => {
@@ -11,8 +11,11 @@ export const fetchApi = async <D>(req: FetchRequest, options?: RequestInit): Pro
     const method = req[0];
     const url = `${API_HOST}/${path}`;
 
+    const token = localStorage.getItem("token");
+    const Authorization = token ?  `Bearer ${token}` : undefined;
+
     try {
-        const response = await fetch(url, { method, headers: default_headers, ...options });
+        const response = await fetch(url, { method, headers: { ...default_headers, Authorization }, ...options });
         if (!response.ok) {
             const error = await response.json();
             return {
@@ -23,7 +26,7 @@ export const fetchApi = async <D>(req: FetchRequest, options?: RequestInit): Pro
 
         return {
                 ok: true,
-                data: response.json() as D
+                data: await response.json() as D
         }
 
     } catch (err) {

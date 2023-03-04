@@ -7,6 +7,8 @@ import { HasJoinedRequest } from 'src/common/requests/has.joined.dto';
 import { JoinRequest } from 'src/common/requests/join.dto';
 import { LoginResultRequest } from 'src/common/requests/login.result.dto';
 import { LoginUserRequest } from 'src/common/requests/login.user.dto';
+import { UserId } from 'src/decorators/user.decorator';
+import { User } from 'src/entities/user.dto';
 import { AdminGuard } from 'src/guards/AdminGuard';
 import { PlayerGuard } from 'src/guards/PlayerGuard';
 import { AuthService } from './auth.service';
@@ -22,6 +24,12 @@ export class AuthController {
   @Post('login')
   async loginUser(@Body() data: LoginUserRequest): Promise<LoginResultRequest> {
     return await this.authService.loginUser(data);
+  }
+
+  @UseGuards(PlayerGuard)
+  @Get("verify-token")
+  async verifyToken(@UserId() userId: number): Promise<User> {
+    return await this.authService.verifyToken(userId);
   }
 
   @UseGuards(AdminGuard)

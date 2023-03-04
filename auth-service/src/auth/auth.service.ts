@@ -47,6 +47,11 @@ export class AuthService {
 
     return user;
   }
+
+  async verifyToken(userId: number) {
+    return await this.userRepository.findOneOrFail(userId);
+  }
+
   async loginUser({
     nickname,
     password

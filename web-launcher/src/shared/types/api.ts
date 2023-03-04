@@ -12,3 +12,7 @@ export type FetchResponse<D> = {
     error?: string
 };
 
+export type VerifyTokenResponse = {
+    nickname: string;
+};
+

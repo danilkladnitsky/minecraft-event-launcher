@@ -30,8 +30,23 @@ function LoginPage() {
 
   return (
     <div className={styles.wrapper}>
-      <TextInput disabled={isLoading} error={error} onChange={handleNicknameChange} label="Логин" placeholder='Lololoshka' value={nickname} required={!nickname.length} />
-      <TextInput disabled={isLoading} onChange={handlePasswordChange} label="Пароль" placeholder='********' type={"password"} required={!password.length} />
+      <TextInput
+        disabled={isLoading}
+        error={error}
+        onChange={handleNicknameChange}
+        label="Логин"
+        placeholder='Lololoshka'
+        value={nickname}
+        required={!nickname.length}
+      />
+      <TextInput
+        disabled={isLoading}
+        onChange={handlePasswordChange}
+        label="Пароль"
+        placeholder='********'
+        type={"password"}
+        required={!password.length}
+      />
       <Button
         loading={isLoading}
         className={styles.loginBtn}
