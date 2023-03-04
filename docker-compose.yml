@@ -43,10 +43,21 @@ services:
         - "443:443"
     volumes:
         - ./conf.d:/etc/nginx/conf.d
+        - /github_actions/dhparam:/etc/nginx/dhparam
+        - /github_actions/certbot/conf/:/etc/nginx/ssl/
+        - ./github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
     depends_on:
         - auth-service
         - web-launcher
         - postgres
+  
+  certbot:
+     image: certbot/certbot:latest
+     command: certonly --webroot --webroot-path=/usr/share/nginx/html/letsencrypt --email core2pixel@gmail.com --agree-tos --no-eff-email -d mbtl.ru
+     volumes:
+       - /github_actions/certbot/conf/:/etc/letsencrypt
+       - /github_actions/certbot/logs/:/var/log/letsencrypt
+       - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
     
   web-launcher:
     container_name: web-launcher
