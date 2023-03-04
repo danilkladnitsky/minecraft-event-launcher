@@ -55,4 +55,3 @@ services:
     build:
       context: ./web-launcher
       dockerfile: Dockerfile
-    command: npm run start
