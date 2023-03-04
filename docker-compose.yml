@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   auth-service:
-    container_name: auth
+    container_name: auth-service
     build:
       dockerfile: Dockerfile
       target: production
@@ -36,6 +36,7 @@ services:
     command: -p ${PG_PORT}
 
   nginx:
+    container_name: nginx
     image: nginx:latest
     ports:
         - "80:80"
@@ -44,3 +45,10 @@ services:
         - ./conf.d:/etc/nginx/conf.d
     depends_on:
         - auth-service
+    
+  web-launcher:
+    container_name: web-launcher
+    build:
+      context: ./web-launcher
+    ports:
+      - "3000:4000"

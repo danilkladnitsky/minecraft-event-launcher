@@ -1,6 +1,6 @@
 import { FetchRequest, FetchResponse } from "shared/types/api";
 
-const API_HOST = "http://mbtl.ru/api/";
+const API_HOST = process.env.API_HOST;
 
 const default_headers = {
     "Content-Type": "application/json; charset=utf-8"
@@ -9,7 +9,7 @@ const default_headers = {
 export const fetchApi = async <D>(req: FetchRequest, options?: RequestInit): Promise<FetchResponse<D>> => {
     const path = req[1];
     const method = req[0];
-    const url = `${API_HOST}${path}`;
+    const url = `${API_HOST}/${path}`;
 
     try {
         const response = await fetch(url, { method, headers: default_headers, ...options });

@@ -1,4 +1,4 @@
-import { Badge, Chip } from '@mantine/core';
+import { Badge } from '@mantine/core';
 import React from 'react'
 import styles from "./styles.module.scss";
 

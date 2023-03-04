@@ -1,6 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+require('dotenv').config({
+    path: '.env',
+});
+const DotenvPlugin = require('webpack-dotenv-plugin');
 
 module.exports = {
   entry: {
@@ -55,6 +59,11 @@ module.exports = {
       template: path.resolve(__dirname, "./src/index.html"),
     }),
     new CleanWebpackPlugin(),
+    new DotenvPlugin({
+        path: '.env',
+        sample: '.env.example',
+        allowEmptyValues: true,
+    })
   ],
   devServer: {
     port: 3000,
