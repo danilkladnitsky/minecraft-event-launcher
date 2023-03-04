@@ -44,7 +44,8 @@ function GamePage() {
               <Button
                   children="Выйти"
                   size="md"
-                  variant='outline'
+                    variant='gradient'
+                    gradient={{from: "red"}}
                   onClick={handleLogout}
                   className={styles.logoutButton}
               />

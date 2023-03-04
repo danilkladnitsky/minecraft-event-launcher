@@ -5,6 +5,7 @@ import { useAuthStore, useIpcStore } from 'store';
 import LoginPage from 'pages/LoginPage';
 import { initIpc } from 'ipc';
 import GamePage from 'pages/GamePage';
+import MapBackground from 'shared/ui/MapBackground';
 
 
 function App() {
@@ -32,11 +33,14 @@ function MantineWrapper({ children }: { children: ReactNode }) {
     return (
         <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
             <div className='app-wrapper'>
-                {children}
+                    {children}
             </div>
         </MantineProvider>
     );
 }
 
 
-export default () => <MantineWrapper><App /></MantineWrapper>;
+export default () => <MantineWrapper>
+    <App />
+    <MapBackground />
+</MantineWrapper>;

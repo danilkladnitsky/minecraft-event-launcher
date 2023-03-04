@@ -1,9 +1,10 @@
 .wrapper{
     position: relative;
-    height: 100%;
     display: flex;
     padding: 20px;
     box-sizing: border-box;
+    z-index: 1;
+    align-self: flex-end;
 }
 
 .buttons{
