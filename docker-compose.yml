@@ -51,7 +51,7 @@ services:
   web-launcher:
     container_name: web-launcher
     ports:
-      - "3000:3000"
+      - "3000:80"
     build:
       context: ./web-launcher
       dockerfile: Dockerfile
