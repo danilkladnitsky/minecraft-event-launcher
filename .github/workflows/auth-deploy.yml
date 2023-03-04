@@ -11,7 +11,7 @@ jobs:
     outputs:
       auth_service: ${{ steps.check_files.outputs.auth_service }}
       web_launcher: ${{ steps.check_files.outputs.web_launcher }}
-      nginx: ${{ steps.check_files.outputs.nginx }}
+      proxy: ${{ steps.check_files.outputs.proxy }}
     runs-on: self-hosted
     steps:
       - name: Checkout code
@@ -32,7 +32,7 @@ jobs:
                 echo "::set-output name=web_launcher::true"
               elif [[ $file == conf.d/* ]]; then
                 echo "nginx will be rebuild"
-                echo "::set-output name=nginx::true"
+                echo "::set-output name=proxy::true"
               else
                 echo "file does not belong to any service"
               fi
@@ -65,13 +65,12 @@ jobs:
       - name: Run web launcher
         run: docker compose up -d --build web-launcher
   
-  nginx:
+  proxy:
     runs-on: self-hosted
     needs: init
-    if: needs.init.outputs.nginx == 'true'
+    if: needs.init.outputs.proxy == 'true'
     steps:
-      - name: run certbot
-        run: docker compose up -d --build certbot
       - name: run nginx
         run: docker compose up -d --build nginx
-    
+      - name: run certbot
+        run: docker compose up -d --build certbot    
