@@ -70,6 +70,8 @@ jobs:
     needs: init
     if: needs.init.outputs.nginx == 'true'
     steps:
-      - name: Run nginx
-        run: docker compose up -d --build nginx certbot
+      - name: run certbot
+        run: docker compose up -d --build certbot
+      - name: run nginx
+        run: docker compose up -d --build nginx
     
