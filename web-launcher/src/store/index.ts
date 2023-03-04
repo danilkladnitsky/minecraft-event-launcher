@@ -3,19 +3,24 @@ import { create } from "zustand";
 
 export const useAuthStore = create((set) => ({
     authenticated: false,
+    loginInProcess: false,
+    error: null,
+    clearError: () => set(() => ({ error: null })),
     authenticate: async (nickname: string, password: string) => {
+        set(() => ({ loginInProcess: true }));
         const [method, url] = ROUTES.LOGIN();
-        const { ok, json: getData } = await fetch(url, { method });
+        const result = await fetch(url, { method, body: JSON.stringify({nickname, password}) });
 
-        if (!ok) {
-            return set(() => ({ authenticated: false }));
+        if (!result.ok) {
+            const error = await result.json();
+            
+            return set(() => ({ authenticated: false , loginInProcess: false, error: error?.msg || error.toString() }));
             // TODO: add error message
         }
 
-        const { token }: LoginRes = await getData();
-        console.log(token);
+        const { token }: LoginRes = await result.json();
 
-        set(() => ({ authenticated: true }));
+        set(() => ({ authenticated: true, loginInProcess: false }));
     },
 }));
 

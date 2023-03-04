@@ -1,6 +1,8 @@
+import { API_HOST } from "api";
+
 export const ROUTES = {
-    LOGIN: () => ["POST", "auth/login"],
-    ACCESS_TOKEN: () => ["POST", "auth/access-token"],
+    LOGIN: () => ["POST", API_HOST + "auth/login"],
+    ACCESS_TOKEN: () => ["POST", API_HOST + "auth/access-token"],
 
 }
 

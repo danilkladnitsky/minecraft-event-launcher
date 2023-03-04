@@ -1,13 +1,14 @@
 import { Button, TextInput } from '@mantine/core';
 import { IconLogin } from "@tabler/icons-react";
 import React, { ChangeEvent, useState } from 'react'
+import { Alert } from 'shared/Alert';
 import { ClientVersion } from 'shared/ClientVersion';
 import { useAuthStore } from 'store';
 
 import styles from "./LoginPage.module.scss";
 
 function LoginPage() {
-  const authenticate = useAuthStore((state) => state.authenticate);
+  const { authenticate, isLoading, error, clearError } = useAuthStore();
 
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -26,10 +27,10 @@ function LoginPage() {
 
   return (
     <div className={styles.wrapper}>
-      <TextInput onChange={handleNicknameChange} label="Логин" placeholder='Lololoshka' value={nickname} required />
+      <TextInput error={error} onChange={handleNicknameChange} label="Логин" placeholder='Lololoshka' value={nickname} required />
       <TextInput onChange={handlePasswordChange} label="Пароль" placeholder='********' type={"password"} required />
       <Button
-        loading={false}
+        loading={isLoading}
         className={styles.loginBtn}
         variant="gradient"
         gradient={{ from: 'indigo', to: 'cyan' }}

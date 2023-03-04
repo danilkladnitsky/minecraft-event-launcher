@@ -14,6 +14,8 @@ services:
       PG_HOST: ${PG_HOST}
       APP_PORT: ${APP_PORT}
       JWT_TOKEN: ${JWT_TOKEN}
+      SWAGGER_USER: ${SWAGGER_USER}
+      SWAGGER_PASSWORD: ${SWAGGER_PASSWORD}
     restart: always
     ports:
       - "${APP_PORT}:${APP_PORT}"

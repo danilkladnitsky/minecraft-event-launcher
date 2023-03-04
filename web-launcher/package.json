@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "proxy": "http://localhost/api",
   "scripts": {
-    "start": "webpack serve --config webpack.config.js --env env=development",
-    "build": "webpack --config webpack.config.js --env env=production"
+    "start": "webpack serve --config webpack.config.js --env env=development api_host='http://mbtl.ru/api/'",
+    "build": "webpack --config webpack.config.js --env env=production api_host='http://mbtl.ru/api/'"
   },
   "author": "",
   "license": "ISC",
