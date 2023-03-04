@@ -17,19 +17,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          fetch-depth: 2
       - name: check modified files
         id: check_files
         run: |
-            git diff --name-only HEAD^ HEAD
             git diff --name-only HEAD^ HEAD > files.txt
             while IFS= read -r file; do
               echo $file
               if [[ $file == auth-service/* ]]; then
+                echo "auth-service will be rebuild"
                 echo "::set-output name=auth_service::true"
               elif [[ $file == web-launcher/* ]]; then
+                echo "web-launcher will be rebuild"
                 echo "::set-output name=web_launcher::true"
               elif [[ $file == conf.d/* ]]; then
+                echo "nginx will be rebuild"
                 echo "::set-output name=nginx::true"
               else
                 echo "file does not belong to any service"
