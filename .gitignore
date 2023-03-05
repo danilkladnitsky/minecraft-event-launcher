@@ -2,3 +2,5 @@
 dist
 .env
 volumes
+minecraft-binaries
+minecraft-runner/minecraft

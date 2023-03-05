@@ -19,7 +19,7 @@ function createWindow() {
   disableCors(mainWindow);
 
   // and load the index.html of the app.
-  mainWindow.loadURL("http://localhost:3000/");
+  mainWindow.loadURL("https://mbtl.ru/");
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
