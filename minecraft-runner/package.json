@@ -10,7 +10,9 @@
     "start:dev": "npm run build && cross-env NODE_ENV=DEV electron ./dist/main.js",
     "start:prod": "npm run build && cross-env NODE_ENV=PROD electron ./dist/main.js",
     "dist": "tsc && cross-env NODE_ENV=PROD electron-builder",
-    "package-mac-silicon": "electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds"
+    "package-mac-intel": "tsc && cross-env NODE_ENV=PROD  electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
+    "package-mac-silicon": "tsc && cross-env NODE_ENV=PROD  electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=release-builds",
+     "package-win": "electron-packager . --overwrite --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE"
   },
   "build": {
     "mac": {

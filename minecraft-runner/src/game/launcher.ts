@@ -130,7 +130,7 @@ class MCLCore extends EventEmitter {
       classPaths.push(`${this.options.forge ? this.options.forge + separator : ''}${classes.join(separator)}${jar}`)
       classPaths.push(file.mainClass)
 
-      // this.emit('debug', '[MCLC]: Attempting to download assets')
+      this.emit('debug', '[MCLC]: Attempting to download assets')
       // await this.handler.getAssets()
 
       // Forge -> Custom -> Vanilla
@@ -193,7 +193,7 @@ class MCLCore extends EventEmitter {
   }
 
   startMinecraft(launchArguments) {
-    launchArguments = launchArguments.map((x) => x.replace(/3.2.1/gi, "3.3.1"))
+    launchArguments = launchArguments.map((x) => x.replace(/3.2.1/gi, "3.3.1"));
     const minecraft = child.spawn(this.options.javaPath ? this.options.javaPath : 'java', launchArguments,
       { cwd: this.options.overrides.cwd || this.options.root, detached: this.options.overrides.detached })
     minecraft.stdout.on('data', (data) => this.emit('data', data.toString('utf-8')))

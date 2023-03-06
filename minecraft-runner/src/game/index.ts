@@ -6,8 +6,7 @@ import * as path from "path";
 export function startGame(user: User) {
     const root = path.resolve(__dirname, "../../minecraft");
 
-    console.log(root);
-    
+    console.log("игра запустится из ", root);
     
     const launcher = new Client();
     const opts = {

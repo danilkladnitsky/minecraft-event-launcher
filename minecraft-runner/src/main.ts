@@ -8,7 +8,7 @@ const WINDOW_SIZE = {
   width: 800
 };
 
-const isProd = NODE_ENV === "PROD";
+const isProd = NODE_ENV !== "DEV";
 
 function createWindow() {
   const mainWindow = new BrowserWindow({
