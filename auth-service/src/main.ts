@@ -29,6 +29,7 @@ async function bootstrap() {
     .setTitle('Minecraft server')
     .setDescription('Backend-service')
     .setVersion('1.0')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
