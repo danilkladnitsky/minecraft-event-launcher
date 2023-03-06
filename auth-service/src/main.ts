@@ -31,8 +31,17 @@ async function bootstrap() {
     .setTitle('Minecraft server')
     .setDescription('Backend-service')
     .setVersion('1.0')
-    .addBearerAuth()
-    .build();
+    .addBearerAuth(
+          {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT',
+            name: 'JWT',
+            description: 'Enter JWT token',
+            in: 'header',
+          },
+          'JWT-auth',
+        ).build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);

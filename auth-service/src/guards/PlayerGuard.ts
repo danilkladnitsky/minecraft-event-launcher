@@ -21,7 +21,7 @@ export class PlayerGuard implements CanActivate {
             return false;
         }
 
-        const token: string = authorization.split("Bearer")[1].trim();
+        const token: string = authorization.split("Bearer")[1]?.trim();
         
         try{
             const { role }: { role: Roles } = jwt.verify(token, process.env.JWT_TOKEN);

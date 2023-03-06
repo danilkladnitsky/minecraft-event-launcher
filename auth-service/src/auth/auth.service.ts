@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
   NotFoundException
 } from "@nestjs/common";
@@ -46,6 +47,18 @@ export class AuthService {
     user.accessToken = accessToken;
 
     return user;
+  }
+
+  async getAdminToken(username: string, password: string) {
+    if (username === process.env.SWAGGER_USER && password === process.env.SWAGGER_PASSWORD) {
+      return jwt.sign(
+      { role: "admin" },
+      process.env.JWT_TOKEN,
+      { expiresIn: "1h" }
+    );
+    } else {
+      throw new ForbiddenException();
+    }
   }
 
   async verifyToken(userId: number) {

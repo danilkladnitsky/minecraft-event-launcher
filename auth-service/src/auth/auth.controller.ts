@@ -1,7 +1,7 @@
 import { ForbiddenException, Headers, Query, UseGuards } from '@nestjs/common';
 import { BadRequestException } from '@nestjs/common';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CreateAccountRequest } from 'src/common/requests/create.account.dto';
 import { HasJoinedRequest } from 'src/common/requests/has.joined.dto';
 import { JoinRequest } from 'src/common/requests/join.dto';
@@ -33,6 +33,7 @@ export class AuthController {
   }
 
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('JWT-auth')
   @Post('account/:nickname')
   async createAccount(@Param("nickname") nickname: string, @Body() password: string) {
     return await this.authService.createAccount({nickname, password});
@@ -78,6 +79,13 @@ export class AuthController {
     }
 
     const result = await this.authService.getProfile(uuid);
+
+    return result;
+  }
+
+  @Get("admin-token/:username/:password")
+  async getAdminToken(@Param("username") username: string, @Param("password") password: string) {
+    const result = await this.authService.getAdminToken(username, password);
 
     return result;
   }

@@ -11,7 +11,7 @@ import { diskStorage } from 'multer';
 const sizeOf = require('image-size');
 
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiConsumes } from '@nestjs/swagger';
 import { User } from 'src/entities/user.dto';
 import { UserService } from './user.service';
 import { AdminGuard } from 'src/guards/AdminGuard';
@@ -23,18 +23,21 @@ export class UserController {
 
   @Get()
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('JWT-auth')
   async getAllUsers() {
     return await this.userService.getAllUsers();
   }
 
   @Get('/:id')
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('JWT-auth')
   async getUser(@Param('id') id: number) {
     return await this.userService.getUser(id);
   }
 
   @Patch('/:id')
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('JWT-auth')
   async updateUser(
     @Param('id') id: number,
     @Body() data: Partial<User>,
@@ -44,6 +47,7 @@ export class UserController {
 
   @Delete('/:id')
   @UseGuards(AdminGuard)
+  @ApiBearerAuth('JWT-auth')
   async deleteUser(
     @Param('id') id: number,
   ) {
