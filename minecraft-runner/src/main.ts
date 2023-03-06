@@ -1,33 +1,32 @@
 import { app, BrowserWindow } from "electron";
 import * as path from "path";
 import disableCors from "./utils/cors";
+const { NODE_ENV } = process.env;
+
+const WINDOW_SIZE = {
+  height: 600,
+  width: 800
+};
+
+const isProd = NODE_ENV === "PROD";
 
 function createWindow() {
-  // Create the browser window.
   const mainWindow = new BrowserWindow({
-    height: 600,
+    ...WINDOW_SIZE,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
-      webSecurity: false
+      webSecurity: isProd
     },
-    width: 800,
     resizable: false,
   });
 
   disableCors(mainWindow);
 
-  // and load the index.html of the app.
-  mainWindow.loadURL("https://mbtl.ru/");
-
-  // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.loadURL(isProd ? "https://mbtl.ru/" : "http://localhost:3000");
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
   createWindow();
 
@@ -45,6 +44,4 @@ app.on("window-all-closed", () => {
   }
 });
 
-// In this file you can include the rest of your app"s specific main process
-// code. You can also put them in separate files and require them here.
 require("./web-launcher");

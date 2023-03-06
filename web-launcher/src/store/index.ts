@@ -63,4 +63,7 @@ export const useIpcStore = create((set) => ({
         set(({ playStatus: "success" }));
         ipcSend(IpcCode.RUN_GAME, { payload: data });
     },
+    sendExitStatus: async () => {
+        ipcSend(IpcCode.CLOSE_GAME,);
+    }
 }));

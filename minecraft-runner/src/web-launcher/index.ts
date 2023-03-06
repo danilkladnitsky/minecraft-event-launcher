@@ -8,18 +8,18 @@ ipcMain.on(IpcCode.CHECK_CONNECTION, (event, payload) => {
     console.log("web launcher was connected");
 });
 
-ipcMain.on(IpcCode.SEND_ACCESS_TOKEN, (event, payload: string) => {
-    const token = JSON.parse(payload);
-});
-
 ipcMain.on(IpcCode.RUN_GAME, (event, data: string) => {
-    const { payload } : { payload: PlayRequest }  = JSON.parse(data);
+    const { payload }: { payload: PlayRequest } = JSON.parse(data);
+    
+    console.log("running game by ", payload.nickname);
 
     const player: User = {
         access_token: payload.accessToken,
         client_token: payload.accessToken,
         name: payload.nickname,
-        uuid: payload.uuid
+        uuid: payload.uuid,
+        maxGb: payload.maxGb,
+        minGb: payload.minGb
     }
 
     startGame(player);
