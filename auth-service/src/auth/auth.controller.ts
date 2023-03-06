@@ -54,7 +54,7 @@ export class AuthController {
     }
 
 
-    return await this.authService.getAccessToken(payload, key);
+    return await this.authService.getAccessToken(payload);
   }
 
   @Post('join.php')
