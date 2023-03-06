@@ -33,9 +33,9 @@ export class AuthController {
   }
 
   @UseGuards(AdminGuard)
-  @Post('account')
-  async createAccount(@Body() account: CreateAccountRequest) {
-    return await this.authService.createAccount(account);
+  @Post('account/:nickname')
+  async createAccount(@Param("nickname") nickname: string, @Body() password: string) {
+    return await this.authService.createAccount({nickname, password});
   }
 
   @UseGuards(PlayerGuard)

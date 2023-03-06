@@ -90,10 +90,9 @@ export class AuthService {
 
   async createAccount({
     nickname,
-    password,
-    generatePassword
+    password
   }: CreateAccountRequest) {
-    const useOwnPassword = generatePassword || !password;
+    const useOwnPassword = !password;
     const existingUser = await this.userRepository.findOne({ nickname });
 
     if (existingUser) {
