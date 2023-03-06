@@ -35,13 +35,13 @@ export class AuthController {
   @UseGuards(AdminGuard)
   @ApiBearerAuth('JWT-auth')
   @Post('account/:nickname')
-  async createAccount(@Param("nickname") nickname: string, @Body() password: string) {
-    return await this.authService.createAccount({nickname, password});
+  async createAccount(@Param("nickname") nickname: string) {
+    return await this.authService.createAccount(nickname);
   }
 
   @UseGuards(PlayerGuard)
   @Post("access-token")
-  async getAccessToken(@Headers("Authorization") token: string, @Headers("PublicKey") key: string) {
+  async getAccessToken(@Headers("Authorization") token: string) {
     const payload = token.split("Bearer")[1].trim();
     if (!payload) {
       throw new ForbiddenException();

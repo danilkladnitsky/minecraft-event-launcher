@@ -34,7 +34,7 @@ export class AuthService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async getAccessToken(payload: string, key: string) {
+  async getAccessToken(payload: string) {
     const { id } = jwt.verify(payload, process.env.JWT_TOKEN);
     const user = await this.userRepository.findOneOrFail(
       id,
@@ -101,11 +101,7 @@ export class AuthService {
     return { nickname: user.nickname, token, id: user.id };
   }
 
-  async createAccount({
-    nickname,
-    password
-  }: CreateAccountRequest) {
-    const useOwnPassword = !password;
+  async createAccount(nickname: string) {
     const existingUser = await this.userRepository.findOne({ nickname });
 
     if (existingUser) {
@@ -117,7 +113,7 @@ export class AuthService {
     const randomPassword = generator.generate({ length: 15, numbers: true });
 
     const newPassword = bcrypt.hashSync(
-      useOwnPassword ? randomPassword : password,
+      randomPassword,
       salt
     );
 
@@ -127,7 +123,7 @@ export class AuthService {
       uuid: uuid4().replace(/-/g, "")
     });
 
-    return { nickname, password: useOwnPassword ? randomPassword : password, id: user.id };
+    return { nickname, password: randomPassword, id: user.id };
   }
 
   async join(data: JoinRequest) {
