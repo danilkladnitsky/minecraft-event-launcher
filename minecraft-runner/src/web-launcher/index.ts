@@ -4,8 +4,14 @@ import { startGame } from "../game";
 import { PlayRequest, User } from "../types";
 import { IpcCode } from "./ipc";
 
+import { app } from "electron";
+
 ipcMain.on(IpcCode.CHECK_CONNECTION, (event, payload) => {
     console.log("web launcher was connected");
+});
+
+ipcMain.on(IpcCode.CLOSE_GAME, (event, payload) => {
+    app.quit();
 });
 
 ipcMain.on(IpcCode.RUN_GAME, (event, data: string) => {
