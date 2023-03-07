@@ -1,6 +1,6 @@
 import { UserModule } from "./user/user.module";
 import { AuthModule } from "./auth/auth.module";
-import { Module } from "@nestjs/common";
+import { MiddlewareConsumer, Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { TypeOrmModule } from "@nestjs/typeorm";
@@ -8,6 +8,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 
 import { User } from "./entities/user.dto";
 import { AuthSession } from "./entities/auth_session.dto";
+import { AppLoggerMiddleware } from "./interceptors/Logging";
 
 @Module({
   imports: [
@@ -36,4 +37,8 @@ import { AuthSession } from "./entities/auth_session.dto";
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(AppLoggerMiddleware).forRoutes('*');
+  }
+}
