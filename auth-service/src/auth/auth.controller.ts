@@ -69,8 +69,6 @@ export class AuthController {
 
     try {
       const result = await this.authService.join(data);
-      
-      throw new ForbiddenException();
       return result;
     } catch (err) {
       console.log(err);
