@@ -183,25 +183,33 @@ export class AuthService {
     const skinUrl = DOMAIN_URL + user.skinUrl;
     const capeUrl = user.capeUrl;
 
-    const textures = { SKIN: { url: skinUrl }, CAPE: { url: capeUrl } };
+    const skins = [
+      'https://www.minecraftskins.com/uploads/skins/2021/05/29/steve--with-hoodie--17960601.png',
+      'https://www.minecraftskins.com/uploads/skins/2021/10/30/steve-s-halloween-costume-19236802.png',
+      'https://www.minecraftskins.com/uploads/skins/2021/12/30/steve-hoodie-19614156.png',
+      'https://www.minecraftskins.com/uploads/skins/2021/12/12/steve-hoodie-19513406.png',
+      'https://www.minecraftskins.com/uploads/skins/2021/11/27/young-steve-19412406.png',
+      'https://www.minecraftskins.com/uploads/skins/2021/10/10/minecraft-blue-jacket-hoodie-steve-19096857.png',
+    ];
+    const textures = { SKIN: { url: skins[0] } };
 
     const res = {
       id: user.uuid,
       name: user.nickname,
-      // properties: [
-      //   {
-      //     name: "textures",
-      //     value: btoa(
-      //       JSON.stringify({
-      //         timestamp: +new Date(),
-      //         profileId: user.uuid,
-      //         profileName: user.nickname,
-      //         textures
-      //       })
-      //     ),
-      //     signature: ""
-      //   }
-      // ]
+      properties: [
+        {
+          name: "textures",
+          value: btoa(
+            JSON.stringify({
+              timestamp: +new Date(),
+              profileId: user.uuid,
+              profileName: user.nickname,
+              textures
+            })
+          ),
+          signature: ""
+        }
+      ]
     };
 
     return res;
