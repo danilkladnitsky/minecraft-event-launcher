@@ -71,7 +71,7 @@ export class AuthController {
       const result = await this.authService.join(data);
       console.log(result);
       
-    return result;
+    // return result;
     } catch (err) {
       console.log(err);
       
