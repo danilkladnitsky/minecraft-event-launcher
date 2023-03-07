@@ -40,7 +40,6 @@ services:
         - /github_actions/dhparam:/etc/nginx/dhparam
         - /github_actions/certbot/conf/:/etc/nginx/ssl/
         - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
-    network_mode: host
   
   certbot:
      container_name: certbot
