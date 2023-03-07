@@ -59,6 +59,8 @@ export class AuthController {
 
   @Post('join.php')
   async join(@Body() data: JoinRequest) {
+    console.log("JOIN", data.selectedProfile, data);
+    
     if (!data.accessToken || !data.selectedProfile) {
       throw new BadRequestException({
         error: 'Invalid user data. Something is missing',
@@ -72,6 +74,8 @@ export class AuthController {
 
   @Get('profile.php')
   async profile(@Query('uuid') uuid: string) {
+    console.log("PROFILE", uuid);
+
     if (!uuid) {
       throw new BadRequestException({
         error: 'Invalid user data. UUID is missing',
@@ -92,6 +96,8 @@ export class AuthController {
 
   @Get('hasJoined.php')
   async hasJoined(@Query() data: HasJoinedRequest) {
+    console.log("HAS JOINED", data.username, data);
+    
     if (!data.username || !data.serverId) {
       throw new BadRequestException({
         error: 'Invalid user data. Something is missing',
