@@ -1,4 +1,4 @@
-import { ForbiddenException, Headers, Query, UseGuards } from '@nestjs/common';
+import { ForbiddenException, Headers, NotFoundException, Query, UseGuards } from '@nestjs/common';
 import { BadRequestException } from '@nestjs/common';
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -69,9 +69,9 @@ export class AuthController {
 
     try {
       const result = await this.authService.join(data);
-      console.log(result);
       
-    // return result;
+      throw new ForbiddenException();
+      return result;
     } catch (err) {
       console.log(err);
       
