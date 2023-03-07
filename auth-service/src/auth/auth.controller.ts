@@ -67,9 +67,14 @@ export class AuthController {
       });
     }
 
-    const result = await this.authService.join(data);
-
+    try {
+      const result = await this.authService.join(data);
     return result;
+    } catch (err) {
+      console.log(err);
+      
+    }
+
   }
 
   @Get('profile.php')
@@ -104,8 +109,12 @@ export class AuthController {
       });
     }
 
-    const result = await this.authService.hasJoined(data);
-
-    return result;
+    try {
+      const result = await this.authService.hasJoined(data);
+      return result;
+    } catch (err) {
+      console.log(err);
+      
+    }
   }
 }
