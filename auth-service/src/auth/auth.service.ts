@@ -188,20 +188,20 @@ export class AuthService {
     const res = {
       id: user.uuid,
       name: user.nickname,
-      properties: [
-        {
-          name: "textures",
-          value: btoa(
-            JSON.stringify({
-              timestamp: +new Date(),
-              profileId: user.uuid,
-              profileName: user.nickname,
-              textures
-            })
-          ),
-          signature: ""
-        }
-      ]
+      // properties: [
+      //   {
+      //     name: "textures",
+      //     value: btoa(
+      //       JSON.stringify({
+      //         timestamp: +new Date(),
+      //         profileId: user.uuid,
+      //         profileName: user.nickname,
+      //         textures
+      //       })
+      //     ),
+      //     signature: ""
+      //   }
+      // ]
     };
 
     return res;
