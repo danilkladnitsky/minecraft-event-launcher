@@ -175,9 +175,10 @@ export class AuthService {
   }
 
   async getProfile(uuid: string) {
-    const user = (await this.userRepository.findOne({
+    const user = (await this.userRepository.findOneOrFail({
       uuid
     })) as User;
+    
     const DOMAIN_URL = process.env.DOMAIN;
     const skinUrl = DOMAIN_URL + user.skinUrl;
     const capeUrl = user.capeUrl;
