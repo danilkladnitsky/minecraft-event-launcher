@@ -5,8 +5,10 @@ import Handler from "./handler";
 const fs = require('fs')
 const EventEmitter = require('events').EventEmitter
 
+
 class MCLCore extends EventEmitter {
-  async launch (options) {
+
+  async launch(options) {
     try {
       this.options = { ...options }
       this.options.root = path.resolve(this.options.root)
@@ -45,10 +47,9 @@ class MCLCore extends EventEmitter {
         return null
       }
 
-      this.createRootDirectory()
-      this.createGameDirectory()
-
-      await this.extractPackage()
+        this.createRootDirectory()
+        this.createGameDirectory()
+        await this.extractPackage()
 
       if (this.options.installer) {
         // So installers that create a profile in launcher_profiles.json can run without breaking.
@@ -71,7 +72,10 @@ class MCLCore extends EventEmitter {
         ? path.join(this.options.root, 'versions', this.options.version.custom, `${this.options.version.custom}.jar`)
         : path.join(directory, `${this.options.version.number}.jar`))
       this.options.mcPath = mcPath
-      const nativePath = await this.handler.getNatives()
+
+      let nativePath
+    
+      nativePath = await this.handler.getNatives()
 
       if (!fs.existsSync(mcPath)) {
         this.emit('debug', '[MCLC]: Attempting to download Minecraft version jar')
@@ -131,7 +135,8 @@ class MCLCore extends EventEmitter {
       classPaths.push(file.mainClass)
 
       this.emit('debug', '[MCLC]: Attempting to download assets')
-      // await this.handler.getAssets()
+
+      await this.handler.getAssets()
 
       // Forge -> Custom -> Vanilla
       const launchOptions = await this.handler.getLaunchOptions(modifyJson)
@@ -193,10 +198,7 @@ class MCLCore extends EventEmitter {
   }
 
   startMinecraft(launchArguments) {
-    if (process.env.PLATFORM === "SILICON") {
-      launchArguments = launchArguments.map((x) => x.replace(/3.2.1/gi, "3.3.1"));
-    }
-    
+    // launchArguments = launchArguments.map((x) => x.replace(/3.2.1/gi, "3.3.1"));
     const minecraft = child.spawn(this.options.javaPath ? this.options.javaPath : 'java', launchArguments,
       { cwd: this.options.overrides.cwd || this.options.root, detached: this.options.overrides.detached })
     minecraft.stdout.on('data', (data) => this.emit('data', data.toString('utf-8')))

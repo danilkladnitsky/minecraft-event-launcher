@@ -5,3 +5,4 @@ volumes
 minecraft-binaries
 minecraft-runner/minecraft
 binaries
+*-builds

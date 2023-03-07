@@ -5,10 +5,10 @@
   "main": "dist/main.js",
   "scripts": {
     "build": "tsc",
-    "start:dev": "npm run build && cross-env NODE_ENV=DEV electron ./dist/main.js",
-    "start:prod": "npm run build && cross-env NODE_ENV=PROD electron ./dist/main.js",
-    "mac-intel": "tsc && cross-env NODE_ENV=PROD  electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=intel-builds --icon 'mac_icon'",
-    "mac-silicon": "tsc && cross-env NODE_ENV=PROD cross-env PLATFORM=SILICON  electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=silicon-builds --icon 'mac_icon'",
+    "start:dev": "npm run build && cross-env NODE_ENV=DEV cross-env PLATFORM=SILICON electron ./dist/main.js",
+    "start:prod": "npm run build && cross-env NODE_ENV=PROD cross-env PLATFORM=SILICON electron ./dist/main.js",
+    "mac-intel": "tsc && cross-env NODE_ENV=PROD  electron-packager . --overwrite --platform=darwin --arch=x64 --prune=true --out=../intel-builds --icon 'mac_icon'",
+    "mac-silicon": "tsc && cross-env NODE_ENV=PROD cross-env PLATFORM=SILICON  electron-packager . --overwrite --platform=darwin --arch=arm64 --prune=true --out=../silicon-builds --icon 'mac_icon'",
     "win": "electron-packager . --overwrite --platform=win32 --arch=x64 --prune=true --out=windows-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --icon 'win_icon.png'"
   },
   "build": {
