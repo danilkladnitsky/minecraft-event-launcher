@@ -2,3 +2,6 @@ node_modules
 dist
 release-builds
 binaries
+silicon-builds
+windows-builds
+intel-builds

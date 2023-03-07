@@ -21,6 +21,7 @@ function createWindow() {
       devTools: !isProd
     },
     resizable: false,
+    icon: __dirname + '/launcher_icon.ico',
   });
 
   disableCors(mainWindow);
