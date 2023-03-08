@@ -43,7 +43,10 @@ function MantineWrapper({ children }: { children: ReactNode }) {
 
 
 export default () => <MantineWrapper>
-    <SnackbarProvider autoHideDuration={3000}>
+    <SnackbarProvider autoHideDuration={3000} anchorOrigin={{
+    vertical: 'top',
+    horizontal: 'left',
+  }}>
         <App />
     </SnackbarProvider>
 </MantineWrapper>;
