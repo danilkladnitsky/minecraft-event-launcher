@@ -1,5 +1,5 @@
 import { Button, CloseButton, Tooltip } from '@mantine/core';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuthStore, useIpcStore } from 'store';
 import styles from "./GamePage.module.scss";
 import UserProfile from 'shared/ui/UserProfile';
@@ -12,8 +12,25 @@ function GamePage() {
   
   const isPlaying = playStatus === "success";
   const playText = !isPlaying ? `Играть за ${nickname}` : "Игра запущена";
-  const closeText = isPlaying ? "Закрыть игру" : "Выйти из лаунчера";
+  const closeText = isPlaying ? "Закрыть игру" : "Закрыть лаунчер";
 
+  const [canCloseGame, setCanCloseGame] = useState(false);
+  const [loadingCloseGame, setLoadingCloseGame] = useState(false);
+
+  useEffect(() => {
+    if (playStatus !== "success") return;
+    setLoadingCloseGame(true);
+    const id = setTimeout(() => {
+      setCanCloseGame(true);
+      setLoadingCloseGame(false);
+    }, 5000);
+    
+    return () => {
+      clearTimeout(id);
+      setCanCloseGame(false);
+    };
+  }, [playStatus])
+  
 
   const handlePlay = () => {
     if (isPlaying) {
@@ -58,6 +75,8 @@ function GamePage() {
           gradient={{ from: "red" }}
           onClick={isPlaying ? handleGameStop : handleExit}
           className={styles.logoutButton}
+          disabled={isPlaying && !canCloseGame}
+          loading={loadingCloseGame}
         />
         <Tooltip label="Выйти из аккаунта">
             <CloseButton className={styles.logout} variant="light" disabled={isPlaying} onClick={handleLogout} />
