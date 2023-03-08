@@ -5,9 +5,9 @@ import styles from "./styles.module.scss";
 function MapBackground() {
   const authenticated = useAuthStore(state => state.authenticated);
 
-  const opacity = authenticated ? 0.3 : 0;
-
-  return (<iframe className={styles.map} style={{ opacity }} src='https://mc.westeroscraft.com/' />)
+  return authenticated && <div className={styles.bg}>
+    <img className={styles.loading} src='/loading.gif' />
+  </div>
 }
 
 export default MapBackground;

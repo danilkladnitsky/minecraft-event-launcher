@@ -1,4 +1,4 @@
-.map{
+.bg{
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -7,4 +7,11 @@
     z-index: 0;
     overflow: hidden;
     border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading{
+    height: 200px;
 }

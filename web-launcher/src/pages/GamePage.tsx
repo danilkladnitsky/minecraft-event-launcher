@@ -1,5 +1,6 @@
 import { Button } from '@mantine/core';
 import React from 'react'
+import MapBackground from 'shared/ui/MapBackground';
 import { useAuthStore, useIpcStore } from 'store';
 import styles from "./GamePage.module.scss";
 
