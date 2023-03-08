@@ -1,8 +1,8 @@
 import { Button } from '@mantine/core';
 import React from 'react'
-import MapBackground from 'shared/ui/MapBackground';
 import { useAuthStore, useIpcStore } from 'store';
 import styles from "./GamePage.module.scss";
+import UserProfile from 'shared/ui/UserProfile';
 
 function GamePage() {
   const { logout, nickname } = useAuthStore();
@@ -12,7 +12,7 @@ function GamePage() {
   
   const isPlaying = playStatus === "success";
   const playText = isPlayable ? `Играть за ${nickname}` : "Зайдите в лаунчер для игры";
-  const closeText = "Выйти из профиля";
+  const closeText = isPlaying ? "Закрыть лаунчер" : "Выйти из профиля";
 
 
   const handlePlay = () => {
@@ -30,6 +30,7 @@ function GamePage() {
 
   return ( 
     <div className={styles.wrapper}>
+      <UserProfile />
       <div className={styles.buttons}>
         <Button
           children={playText}

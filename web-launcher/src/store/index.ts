@@ -5,6 +5,8 @@ import { AccessTokenResponse, LoginRes, VerifyTokenResponse } from "shared/types
 import { IpcCode } from "shared/types/ipc";
 import { create } from "zustand";
 
+import { enqueueSnackbar } from 'notistack';
+
 export const useAuthStore = create((set) => ({
     authenticated: false,
     loginInProcess: false,
@@ -24,6 +26,7 @@ export const useAuthStore = create((set) => ({
         localStorage.setItem("token", token);
         ipcSend(IpcCode.SEND_ACCESS_TOKEN, { payload: token });
         set(() => ({ authenticated: true, loginInProcess: false, nickname }));
+        enqueueSnackbar("Вы успешно авторизовались", { variant: "success" });
     },
     verifyToken: async () => {
         set(() => ({ verifyStatus: "loading" }));
@@ -57,13 +60,15 @@ export const useIpcStore = create((set) => ({
 
         if (!ok || !data) {
             set(({ playStatus: "error" }));
+            enqueueSnackbar("Ошибка при получении accessToken. Попробуйте перезайти в игру", { variant: "error" });
             return set(() => ({ launcherError: "Ошибка при получении accessToken. Попробуйте перезайти в игру." }));
         }
 
         set(({ playStatus: "success" }));
+        enqueueSnackbar("Отправлен сигнал клиенту-Minecraft", { variant: "info" });
         ipcSend(IpcCode.RUN_GAME, { payload: data });
     },
     sendExitStatus: async () => {
-        ipcSend(IpcCode.CLOSE_GAME,);
+        ipcSend(IpcCode.CLOSE_GAME);
     }
 }));

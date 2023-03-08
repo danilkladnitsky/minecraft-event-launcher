@@ -1,5 +1,4 @@
 .wrapper{
-    position: relative;
     display: flex;
     padding: 20px;
     box-sizing: border-box;
@@ -21,4 +20,10 @@
 
 .skinButton, .logoutButton{
     min-width: 120px;
+}
+
+.settings{
+    position: absolute;
+    left: 16px;
+    top: 16px;
 }

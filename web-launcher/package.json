@@ -44,6 +44,7 @@
     "@tabler/icons-react": "^2.7.0",
     "copy-webpack-plugin": "^11.0.0",
     "dotenv": "^16.0.3",
+    "notistack": "^3.0.0",
     "react-router-dom": "^6.8.2",
     "sass": "^1.58.3",
     "webpack-dotenv-plugin": "^2.1.0",

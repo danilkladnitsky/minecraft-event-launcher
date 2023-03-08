@@ -1,11 +1,13 @@
 import React, { ReactNode, useEffect } from 'react'
 import { Loader, MantineProvider } from '@mantine/core';
+import { SnackbarProvider } from 'notistack'
+
 import { useAuthStore, useIpcStore } from 'store';
 
 import LoginPage from 'pages/LoginPage';
 import { initIpc } from 'ipc';
 import GamePage from 'pages/GamePage';
-import MapBackground from 'shared/ui/MapBackground';
+import UserProfile from 'shared/ui/UserProfile';
 
 
 function App() {
@@ -41,6 +43,7 @@ function MantineWrapper({ children }: { children: ReactNode }) {
 
 
 export default () => <MantineWrapper>
-    <App />
-    <MapBackground />
+    <SnackbarProvider autoHideDuration={3000}>
+        <App />
+    </SnackbarProvider>
 </MantineWrapper>;
