@@ -6,15 +6,22 @@ import { IpcCode } from "./ipc";
 
 import { app } from "electron";
 
-ipcMain.on(IpcCode.CHECK_CONNECTION, (event, payload) => {
+let gameInstance;
+
+ipcMain.on(IpcCode.CHECK_CONNECTION, () => {
     console.log("web launcher was connected");
 });
 
-ipcMain.on(IpcCode.CLOSE_GAME, (event, payload) => {
-    app.quit();
+ipcMain.on(IpcCode.CLOSE_GAME, () => {
+    gameInstance && gameInstance.kill();
 });
 
-ipcMain.on(IpcCode.RUN_GAME, (event, data: string) => {
+ipcMain.on(IpcCode.CLOSE_ALL, () => {
+    app.quit();
+    gameInstance && gameInstance.kill();
+});
+
+ipcMain.on(IpcCode.RUN_GAME, async (event, data: string) => {
     const { payload }: { payload: PlayRequest } = JSON.parse(data);
     
     console.log("running game by ", payload.nickname);
@@ -28,5 +35,5 @@ ipcMain.on(IpcCode.RUN_GAME, (event, data: string) => {
         minGb: payload.minGb
     }
 
-    startGame(player);
+    gameInstance  = await startGame(player);
 });

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Button } from '@mantine/core';
+import { Button, Tooltip } from '@mantine/core';
 import { useSnackbar } from 'notistack';
 
 import { useAuthStore } from 'store';
@@ -19,7 +19,9 @@ function UserProfile() {
 
   return authenticated && <div className={styles.bg}>
     <div className={styles.actions}>
-      <Button variant="subtle" onClick={handleOpenProfile}>Профиль игрока {nickname}</Button>
+      <Tooltip label="Настройка оперативной памяти, смена скина">
+        <Button variant="subtle" onClick={handleOpenProfile}>Профиль игрока {nickname}</Button>
+      </Tooltip>
     </div>
     <img className={styles.loading} src='/loading.gif' />
   </div>

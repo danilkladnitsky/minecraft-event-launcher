@@ -3,8 +3,8 @@ export enum IpcCode {
     SEND_ACCESS_TOKEN = "send_access_token",
     CLOSE_GAME = "close_game",
     CHECK_CONNECTION = "check_connection",
-    LOG = "log"
-
+    LOG = "log",
+    CLOSE_ALL = "close_all"
 }
 
 export type IpcRequest = {

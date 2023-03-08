@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Button, CloseButton, Tooltip } from '@mantine/core';
 import React from 'react'
 import { useAuthStore, useIpcStore } from 'store';
 import styles from "./GamePage.module.scss";
@@ -6,13 +6,13 @@ import UserProfile from 'shared/ui/UserProfile';
 
 function GamePage() {
   const { logout, nickname } = useAuthStore();
-  const { sendPlaySignal, playStatus, setPlayStatus, device, sendExitStatus } = useIpcStore();
+  const { sendPlaySignal, playStatus, setPlayStatus, device, sendExitStatus, stopGame } = useIpcStore();
   const isPlayable = device !== "browser";
   const buttonColor = !isPlaying ? { from: 'indigo', to: 'cyan' } : { from: "lime", to: "green" };
   
   const isPlaying = playStatus === "success";
-  const playText = isPlayable ? `Играть за ${nickname}` : "Зайдите в лаунчер для игры";
-  const closeText = isPlaying ? "Закрыть лаунчер" : "Выйти из профиля";
+  const playText = !isPlaying ? `Играть за ${nickname}` : "Игра запущена";
+  const closeText = isPlaying ? "Закрыть игру" : "Выйти из лаунчера";
 
 
   const handlePlay = () => {
@@ -22,10 +22,19 @@ function GamePage() {
     sendPlaySignal();
   }
 
-  const handleLogout = () => {
+  const handleExit = () => {
     sendExitStatus();
     setPlayStatus("idle");
+  }
+
+  const handleGameStop = () => {
+    stopGame();
+  }
+
+  const handleLogout = () => {
     logout();
+    setPlayStatus("idle");
+    stopGame();
   }
 
   return ( 
@@ -39,17 +48,20 @@ function GamePage() {
           size="md"
           className={styles.playButton}
           onClick={handlePlay}
-          loading={playStatus === "loading"}
-          disabled={!isPlayable}
+          loading={playStatus === "loading" || isPlaying}
+          disabled={!isPlayable || isPlaying}
         />
         <Button
           children={closeText}
           size="md"
           variant='gradient'
           gradient={{ from: "red" }}
-          onClick={handleLogout}
+          onClick={isPlaying ? handleGameStop : handleExit}
           className={styles.logoutButton}
         />
+        <Tooltip label="Выйти из аккаунта">
+            <CloseButton className={styles.logout} variant="light" disabled={isPlaying} onClick={handleLogout} />
+        </Tooltip>
       </div>
     </div>
   )

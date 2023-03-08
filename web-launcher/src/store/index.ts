@@ -68,7 +68,12 @@ export const useIpcStore = create((set) => ({
         enqueueSnackbar("Отправлен сигнал Minecraft-клиенту", { variant: "info" });
         ipcSend(IpcCode.RUN_GAME, { payload: data });
     },
-    sendExitStatus: async () => {
+    stopGame: async () => {
+        set(({ playStatus: "idle" }));
         ipcSend(IpcCode.CLOSE_GAME);
+    },
+    sendExitStatus: async () => {
+        set(({ playStatus: "idle" }));
+        ipcSend(IpcCode.CLOSE_ALL);
     }
 }));

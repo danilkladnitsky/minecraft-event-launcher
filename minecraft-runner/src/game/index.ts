@@ -3,7 +3,7 @@ import { User } from "../types/index";
 
 import * as path from "path";
 
-export function startGame(user: User) {
+export async function startGame(user: User) {
     const root = path.resolve(__dirname, "../../minecraft");
 
     console.log("игра запустится из ", root);
@@ -12,6 +12,7 @@ export function startGame(user: User) {
     const opts = {
         authorization: user,
         root,
+        detached: false,
         version: {
             number: "1.18.1",
             type: "release"
@@ -19,10 +20,16 @@ export function startGame(user: User) {
         memory: {
             max: `${user.minGb || 2}G`,
             min: `${user.maxGb || 1}G`
+        },
+        server: {
+            host: "mbtl.ru",
+            port: "25565"
         }
     }
 
-    launcher.launch(opts);
+    const instance = await launcher.launch(opts);
     launcher.on('debug', (e) => console.log(e));
     launcher.on('data', (e) => console.log(e));
+
+    return instance;
 }
