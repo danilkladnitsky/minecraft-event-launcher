@@ -5,6 +5,7 @@ require('dotenv').config({
     path: '.env',
 });
 const DotenvPlugin = require('webpack-dotenv-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -68,7 +69,12 @@ module.exports = {
         path: '.env',
         sample: '.env.example',
         allowEmptyValues: true,
-    })
+    }),
+    new CopyPlugin({
+            patterns: [
+                { from: "../public", to: "" }
+            ],
+        }),
   ],
   devServer: {
     port: 3000,
