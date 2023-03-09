@@ -41,6 +41,14 @@ services:
         - /github_actions/certbot/conf/:/etc/nginx/ssl/
         - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
   
+  http-nginx:
+    container_name: http-nginx
+    image: nginx:latest
+    ports:
+        - "80:80"
+    volumes:
+        - ./http-nginx:/etc/nginx/conf.d
+  
   certbot:
      container_name: certbot
      image: certbot/certbot:latest

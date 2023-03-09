@@ -1,0 +1,28 @@
+name: Deploy http nginx
+
+on: workflow_dispatch
+
+jobs:
+  update-repo:
+    name: checkout
+    runs-on: self-hosted
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: Create env file for backend
+        run: |
+          echo "${{secrets.ENV_FILE}}" > .env
+      - name: Create env file for web launcher
+        run: |
+          echo "${{secrets.WEB_ENV_FILE}}" > ./web-launcher/.env
+
+
+  deploy-http-nginx:
+    runs-on: self-hosted
+    needs: [update-repo]
+    steps:
+      - name: Run http nginx
+        run: docker compose up -d --build http-nginx
+    
