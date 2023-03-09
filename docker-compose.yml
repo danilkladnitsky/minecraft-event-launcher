@@ -57,6 +57,16 @@ services:
        - /github_actions/certbot/conf/:/etc/letsencrypt
        - /github_actions/certbot/logs/:/var/log/letsencrypt
        - /github_actions/certbot/data:/usr/share/nginx/html/letsencrypt
+  
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${SWAGGER_USER}@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: ${SWAGGER_PASSWORD}
+    ports:
+      - "5050:80"
     
   web-launcher:
     container_name: web-launcher
