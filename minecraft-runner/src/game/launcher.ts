@@ -198,7 +198,7 @@ class MCLCore extends EventEmitter {
   }
 
   startMinecraft(launchArguments) {
-    launchArguments = launchArguments.map((x) => !x ? x : x.replace(/3.2.1/gi, "3.3.1"));
+    // launchArguments = launchArguments.map((x) => !x ? x : x.replace(/3.2.1/gi, "3.3.1"));
     const minecraft = child.spawn(this.options.javaPath ? this.options.javaPath : 'java', launchArguments,
       { cwd: this.options.overrides.cwd || this.options.root, detached: this.options.overrides.detached })
     minecraft.stdout.on('data', (data) => this.emit('data', data.toString('utf-8')))
