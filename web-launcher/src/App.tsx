@@ -35,7 +35,10 @@ function MantineWrapper({ children }: { children: ReactNode }) {
     return (
         <MantineProvider theme={{ colorScheme: 'dark' }} withGlobalStyles withNormalizeCSS>
             <div className='app-wrapper'>
-                    {children}
+                {children}
+                <div className="footer">
+                    <a href="https://vk.com/itmomegabattle">ITMO.Megabattle</a> x <a href='https://vk.com/kladnitskiy'>kladnitsky</a>
+                </div>
             </div>
         </MantineProvider>
     );

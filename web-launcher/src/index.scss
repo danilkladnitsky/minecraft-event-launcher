@@ -24,3 +24,13 @@ label{
 .page{
     z-index: 1;
 }
+
+.footer{
+    position: absolute;
+    bottom: 16px;
+    font-size: 12px;
+
+    a{
+        color: #cacaca;
+    }
+}
