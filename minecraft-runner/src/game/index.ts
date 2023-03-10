@@ -21,15 +21,10 @@ export async function startGame(user: User) {
             max: `${user.minGb || 2}G`,
             min: `${user.maxGb || 1}G`
         },
-        server: {
-            host: "mbtl.ru",
-            port: "25565"
-        }
     }
 
-    const instance = await launcher.launch(opts);
     launcher.on('debug', (e) => console.log(e));
     launcher.on('data', (e) => console.log(e));
+    return await launcher.launch(opts);
 
-    return instance;
 }

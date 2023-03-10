@@ -59,7 +59,6 @@ function LoginPage() {
         >
         Авторизоваться
       </Button>
-      <ClientVersion />
     </div>
   )
 }

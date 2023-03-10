@@ -5,7 +5,7 @@ import styles from "./styles.module.scss";
 export const ClientVersion = () => {
   return (
       <div className={styles.wrapper}>
-          <Badge children="Версия лаунчера: v0.1" variant='dot' />
+          <Badge children="Версия лаунчера: v0.1" variant='outline' />
       </div>
   )
 }
