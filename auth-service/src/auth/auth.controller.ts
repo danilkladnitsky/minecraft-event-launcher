@@ -36,7 +36,7 @@ export class AuthController {
   @ApiBearerAuth('JWT-auth')
   @Post('account/:nickname')
   async createAccount(@Param("nickname") nickname: string) {
-    return await this.authService.createAccount(nickname);
+    return await this.authService.createAccount(nickname.trim());
   }
 
   @UseGuards(PlayerGuard)

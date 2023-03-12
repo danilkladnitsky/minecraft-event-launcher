@@ -16,7 +16,10 @@ export const useAuthStore = create((set) => ({
     clearError: () => set(() => ({ error: null })),
     authenticate: async (nickname: string, password: string) => {
         set(() => ({ loginInProcess: true }));
-        const { ok, data, error } = await fetchApi<LoginRes>(ROUTES.LOGIN(), { body: JSON.stringify({ nickname, password }) });
+        const { ok, data, error } = await fetchApi<LoginRes>(ROUTES.LOGIN(),
+            {
+                body: JSON.stringify({ nickname: nickname.trim(), password: password.trim() })
+            });
 
         if (!ok || !data) {
             return set(() => ({ authenticated: false , loginInProcess: false, error }));
